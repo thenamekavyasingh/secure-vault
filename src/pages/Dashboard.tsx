@@ -1,10 +1,10 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
 import { DashboardHeader } from '@/components/DashboardHeader';
 import { useAuth } from '@/hooks/useAuth';
 
-const Dashboard = ({ children }: { children?: React.ReactNode }) => {
+const Dashboard = () => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -26,7 +26,7 @@ const Dashboard = ({ children }: { children?: React.ReactNode }) => {
         <div className="flex-1 flex flex-col">
           <DashboardHeader />
           <main className="flex-1 p-6">
-            {children}
+            <Outlet />
           </main>
         </div>
       </div>
