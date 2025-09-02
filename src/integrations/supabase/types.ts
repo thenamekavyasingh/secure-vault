@@ -14,7 +14,104 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      categories: {
+        Row: {
+          color: string
+          created_at: string
+          icon: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      password_entries: {
+        Row: {
+          account_name: string
+          category_id: string | null
+          created_at: string
+          email: string | null
+          encrypted_password: string
+          id: string
+          notes: string | null
+          updated_at: string
+          user_id: string
+          username: string | null
+          website_url: string | null
+        }
+        Insert: {
+          account_name: string
+          category_id?: string | null
+          created_at?: string
+          email?: string | null
+          encrypted_password: string
+          id?: string
+          notes?: string | null
+          updated_at?: string
+          user_id: string
+          username?: string | null
+          website_url?: string | null
+        }
+        Update: {
+          account_name?: string
+          category_id?: string | null
+          created_at?: string
+          email?: string | null
+          encrypted_password?: string
+          id?: string
+          notes?: string | null
+          updated_at?: string
+          user_id?: string
+          username?: string | null
+          website_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "password_entries_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
