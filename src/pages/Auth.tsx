@@ -79,26 +79,26 @@ const Auth = () => {
       <div className="hidden lg:flex flex-1 items-center justify-center p-12">
         <div className="text-center space-y-8">
           <div className="flex justify-center">
-            <div className="p-8 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl backdrop-blur-sm border border-primary/10">
-              <Shield className="h-20 w-20 text-primary" />
+            <div className="p-8 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl">
+              <Shield className="h-20 w-20 text-white drop-shadow-lg" />
             </div>
           </div>
           <div className="space-y-4">
-            <h1 className="text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            <h1 className="text-6xl font-bold text-white drop-shadow-2xl">
               SecureVault
             </h1>
-            <p className="text-xl text-muted-foreground max-w-md">
+            <p className="text-xl text-white/90 max-w-md drop-shadow-lg">
               Your secure password manager with military-grade encryption
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4 max-w-sm">
-            <div className="p-4 rounded-xl bg-card/40 backdrop-blur-sm border">
-              <Lock className="h-6 w-6 text-primary mb-2" />
-              <p className="text-sm font-medium">256-bit Encryption</p>
+            <div className="p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg">
+              <Lock className="h-6 w-6 text-white mb-2" />
+              <p className="text-sm font-medium text-white">256-bit Encryption</p>
             </div>
-            <div className="p-4 rounded-xl bg-card/40 backdrop-blur-sm border">
-              <Shield className="h-6 w-6 text-primary mb-2" />
-              <p className="text-sm font-medium">Zero Knowledge</p>
+            <div className="p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg">
+              <Shield className="h-6 w-6 text-white mb-2" />
+              <p className="text-sm font-medium text-white">Zero Knowledge</p>
             </div>
           </div>
         </div>
@@ -110,22 +110,22 @@ const Auth = () => {
           {/* Mobile branding */}
           <div className="text-center lg:hidden">
             <div className="flex justify-center mb-6">
-              <div className="p-4 bg-primary/10 rounded-full backdrop-blur-sm">
-                <Shield className="h-12 w-12 text-primary" />
+              <div className="p-4 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-lg">
+                <Shield className="h-12 w-12 text-white drop-shadow-lg" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold text-white drop-shadow-2xl mb-2">
               SecureVault
             </h1>
-            <p className="text-muted-foreground mt-2">
+            <p className="text-white/90 drop-shadow-lg">
               Your secure password manager
             </p>
           </div>
 
-          <Card className="bg-card/60 backdrop-blur-lg border border-primary/10 shadow-2xl">
+          <Card className="bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl">
             <CardHeader>
-              <CardTitle className="text-center text-2xl">Welcome</CardTitle>
-              <CardDescription className="text-center">
+              <CardTitle className="text-center text-2xl text-white">Welcome</CardTitle>
+              <CardDescription className="text-center text-white/80">
                 Sign in to your secure vault or create a new account
               </CardDescription>
             </CardHeader>
@@ -139,15 +139,15 @@ const Auth = () => {
                 <TabsContent value="signin">
                   <form onSubmit={handleSignIn} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="signin-email">Email</Label>
+                      <Label htmlFor="signin-email" className="text-white">Email</Label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70" />
                         <Input
                           id="signin-email"
                           name="email"
                           type="email"
                           placeholder="Enter your email"
-                          className="pl-10 bg-background/50"
+                          className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
                           value={formData.email}
                           onChange={handleInputChange}
                           required
@@ -155,22 +155,22 @@ const Auth = () => {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="signin-password">Password</Label>
+                      <Label htmlFor="signin-password" className="text-white">Password</Label>
                       <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70" />
                         <Input
                           id="signin-password"
                           name="password"
                           type="password"
                           placeholder="Enter your password"
-                          className="pl-10 bg-background/50"
+                          className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
                           value={formData.password}
                           onChange={handleInputChange}
                           required
                         />
                       </div>
                     </div>
-                    <Button type="submit" className="w-full" disabled={loading}>
+                    <Button type="submit" className="w-full bg-white text-gray-900 hover:bg-white/90 font-medium" disabled={loading}>
                       {loading ? 'Signing In...' : 'Sign In'}
                     </Button>
                   </form>
@@ -179,30 +179,30 @@ const Auth = () => {
                 <TabsContent value="signup">
                   <form onSubmit={handleSignUp} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="fullname">Full Name</Label>
+                      <Label htmlFor="fullname" className="text-white">Full Name</Label>
                       <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70" />
                         <Input
                           id="fullname"
                           name="fullName"
                           type="text"
                           placeholder="Enter your full name"
-                          className="pl-10 bg-background/50"
+                          className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
                           value={formData.fullName}
                           onChange={handleInputChange}
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="signup-email">Email</Label>
+                      <Label htmlFor="signup-email" className="text-white">Email</Label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70" />
                         <Input
                           id="signup-email"
                           name="email"
                           type="email"
                           placeholder="Enter your email"
-                          className="pl-10 bg-background/50"
+                          className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
                           value={formData.email}
                           onChange={handleInputChange}
                           required
@@ -210,15 +210,15 @@ const Auth = () => {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="signup-password">Password</Label>
+                      <Label htmlFor="signup-password" className="text-white">Password</Label>
                       <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70" />
                         <Input
                           id="signup-password"
                           name="password"
                           type="password"
                           placeholder="Create a password"
-                          className="pl-10 bg-background/50"
+                          className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
                           value={formData.password}
                           onChange={handleInputChange}
                           required
@@ -226,7 +226,7 @@ const Auth = () => {
                       </div>
                       <PasswordStrength password={formData.password} className="mt-2" />
                     </div>
-                    <Button type="submit" className="w-full" disabled={loading}>
+                    <Button type="submit" className="w-full bg-white text-gray-900 hover:bg-white/90 font-medium" disabled={loading}>
                       {loading ? 'Creating Account...' : 'Create Account'}
                     </Button>
                   </form>

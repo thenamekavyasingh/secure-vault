@@ -22,10 +22,10 @@ export const PasswordStrength = ({ password, className }: PasswordStrengthProps)
     
     score = Object.values(checks).filter(Boolean).length;
     
-    if (score <= 2) return { score: score * 20, label: 'Weak', color: 'text-destructive' };
-    if (score === 3) return { score: 60, label: 'Fair', color: 'text-orange-500' };
-    if (score === 4) return { score: 80, label: 'Good', color: 'text-yellow-500' };
-    return { score: 100, label: 'Strong', color: 'text-green-500' };
+    if (score <= 2) return { score: score * 20, label: 'Weak', color: 'text-red-400' };
+    if (score === 3) return { score: 60, label: 'Fair', color: 'text-orange-400' };
+    if (score === 4) return { score: 80, label: 'Good', color: 'text-yellow-400' };
+    return { score: 100, label: 'Strong', color: 'text-green-400' };
   }, [password]);
 
   if (!password) return null;
@@ -33,12 +33,12 @@ export const PasswordStrength = ({ password, className }: PasswordStrengthProps)
   return (
     <div className={cn("space-y-2", className)}>
       <div className="flex items-center justify-between">
-        <span className="text-sm text-muted-foreground">Password Strength</span>
+        <span className="text-sm text-white/70">Password Strength</span>
         <span className={cn("text-sm font-medium", strength.color)}>
           {strength.label}
         </span>
       </div>
-      <Progress value={strength.score} className="h-2" />
+      <Progress value={strength.score} className="h-2 bg-white/20" />
     </div>
   );
 };
