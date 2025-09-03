@@ -5,9 +5,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Shield, Lock, Mail } from 'lucide-react';
+import { Shield, Lock, Mail, User } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { PasswordStrength } from '@/components/ui/password-strength';
 
 const Auth = () => {
   const { user, signUp, signIn } = useAuth();
@@ -70,129 +72,169 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
-          <div className="flex justify-center mb-6">
-            <div className="p-4 bg-primary/10 rounded-full">
-              <Shield className="h-12 w-12 text-primary" />
+    <div className="min-h-screen flex">
+      <AnimatedBackground />
+      
+      {/* Left Side - Branding */}
+      <div className="hidden lg:flex flex-1 items-center justify-center p-12">
+        <div className="text-center space-y-8">
+          <div className="flex justify-center">
+            <div className="p-8 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl backdrop-blur-sm border border-primary/10">
+              <Shield className="h-20 w-20 text-primary" />
             </div>
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            SecureVault
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            Your secure password manager
-          </p>
+          <div className="space-y-4">
+            <h1 className="text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              SecureVault
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-md">
+              Your secure password manager with military-grade encryption
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4 max-w-sm">
+            <div className="p-4 rounded-xl bg-card/40 backdrop-blur-sm border">
+              <Lock className="h-6 w-6 text-primary mb-2" />
+              <p className="text-sm font-medium">256-bit Encryption</p>
+            </div>
+            <div className="p-4 rounded-xl bg-card/40 backdrop-blur-sm border">
+              <Shield className="h-6 w-6 text-primary mb-2" />
+              <p className="text-sm font-medium">Zero Knowledge</p>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <Card className="card-gradient border-0 shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-center text-2xl">Welcome</CardTitle>
-            <CardDescription className="text-center">
-              Sign in to your secure vault or create a new account
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="signin" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="signin">Sign In</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="signin">
-                <form onSubmit={handleSignIn} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signin-email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signin-email"
-                        name="email"
-                        type="email"
-                        placeholder="Enter your email"
-                        className="pl-10"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                      />
+      {/* Right Side - Auth Forms */}
+      <div className="flex-1 flex items-center justify-center p-4 lg:p-12">
+        <div className="w-full max-w-md space-y-8">
+          {/* Mobile branding */}
+          <div className="text-center lg:hidden">
+            <div className="flex justify-center mb-6">
+              <div className="p-4 bg-primary/10 rounded-full backdrop-blur-sm">
+                <Shield className="h-12 w-12 text-primary" />
+              </div>
+            </div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              SecureVault
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              Your secure password manager
+            </p>
+          </div>
+
+          <Card className="bg-card/60 backdrop-blur-lg border border-primary/10 shadow-2xl">
+            <CardHeader>
+              <CardTitle className="text-center text-2xl">Welcome</CardTitle>
+              <CardDescription className="text-center">
+                Sign in to your secure vault or create a new account
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Tabs defaultValue="signin" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-6">
+                  <TabsTrigger value="signin">Sign In</TabsTrigger>
+                  <TabsTrigger value="signup">Sign Up</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="signin">
+                  <form onSubmit={handleSignIn} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="signin-email">Email</Label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          id="signin-email"
+                          name="email"
+                          type="email"
+                          placeholder="Enter your email"
+                          className="pl-10 bg-background/50"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signin-password">Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signin-password"
-                        name="password"
-                        type="password"
-                        placeholder="Enter your password"
-                        className="pl-10"
-                        value={formData.password}
-                        onChange={handleInputChange}
-                        required
-                      />
+                    <div className="space-y-2">
+                      <Label htmlFor="signin-password">Password</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          id="signin-password"
+                          name="password"
+                          type="password"
+                          placeholder="Enter your password"
+                          className="pl-10 bg-background/50"
+                          value={formData.password}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? 'Signing In...' : 'Sign In'}
-                  </Button>
-                </form>
-              </TabsContent>
-              
-              <TabsContent value="signup">
-                <form onSubmit={handleSignUp} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="fullname">Full Name</Label>
-                    <Input
-                      id="fullname"
-                      name="fullName"
-                      type="text"
-                      placeholder="Enter your full name"
-                      value={formData.fullName}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signup-email"
-                        name="email"
-                        type="email"
-                        placeholder="Enter your email"
-                        className="pl-10"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                      />
+                    <Button type="submit" className="w-full" disabled={loading}>
+                      {loading ? 'Signing In...' : 'Sign In'}
+                    </Button>
+                  </form>
+                </TabsContent>
+                
+                <TabsContent value="signup">
+                  <form onSubmit={handleSignUp} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="fullname">Full Name</Label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          id="fullname"
+                          name="fullName"
+                          type="text"
+                          placeholder="Enter your full name"
+                          className="pl-10 bg-background/50"
+                          value={formData.fullName}
+                          onChange={handleInputChange}
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signup-password"
-                        name="password"
-                        type="password"
-                        placeholder="Create a password"
-                        className="pl-10"
-                        value={formData.password}
-                        onChange={handleInputChange}
-                        required
-                      />
+                    <div className="space-y-2">
+                      <Label htmlFor="signup-email">Email</Label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          id="signup-email"
+                          name="email"
+                          type="email"
+                          placeholder="Enter your email"
+                          className="pl-10 bg-background/50"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? 'Creating Account...' : 'Create Account'}
-                  </Button>
-                </form>
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+                    <div className="space-y-2">
+                      <Label htmlFor="signup-password">Password</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          id="signup-password"
+                          name="password"
+                          type="password"
+                          placeholder="Create a password"
+                          className="pl-10 bg-background/50"
+                          value={formData.password}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <PasswordStrength password={formData.password} className="mt-2" />
+                    </div>
+                    <Button type="submit" className="w-full" disabled={loading}>
+                      {loading ? 'Creating Account...' : 'Create Account'}
+                    </Button>
+                  </form>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

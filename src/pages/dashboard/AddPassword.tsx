@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import { PasswordStrength } from '@/components/ui/password-strength';
 
 interface Category { id: string; name: string; }
 
@@ -92,9 +93,10 @@ const AddPassword = () => {
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" name="email" type="email" placeholder="e.g. john@site.com" value={form.email} onChange={handleChange} />
               </div>
-              <div>
+              <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" name="password" type="password" placeholder="Create a strong password" value={form.password} onChange={handleChange} required />
+                <PasswordStrength password={form.password} />
               </div>
             </div>
 
