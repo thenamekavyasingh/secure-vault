@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, User, ChevronDown } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -69,12 +70,12 @@ export function DashboardHeader() {
               <ChevronDown className="h-4 w-4 text-muted-foreground" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuContent align="end" className="w-56 bg-background border">
             <DropdownMenuItem asChild>
-              <a href="/dashboard/settings" className="flex items-center gap-2">
+              <Link to="/dashboard/settings" className="flex items-center gap-2">
                 <User className="h-4 w-4" />
                 Profile Settings
-              </a>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem 
               onClick={handleSignOut}
