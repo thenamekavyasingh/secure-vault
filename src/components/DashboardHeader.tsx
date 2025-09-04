@@ -31,16 +31,16 @@ export function DashboardHeader() {
     : user?.email?.[0]?.toUpperCase() || 'U';
 
   return (
-    <header className="h-16 border-b border-border bg-background/80 backdrop-blur-sm flex items-center justify-between px-6 sticky top-0 z-40">
+    <header className="glass-header h-16 flex items-center justify-between px-6 sticky top-0 z-40">
       <div className="flex items-center gap-4">
-        <SidebarTrigger className="hover:bg-sidebar-accent/50" />
+        <SidebarTrigger className="hover:bg-white/10 text-white" />
         
         <div className="relative max-w-md w-full">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
           <Input
             type="search"
             placeholder="Search passwords..."
-            className="pl-10 bg-muted/50 border-border/50 focus:bg-background transition-colors"
+            className="glass-input pl-10 transition-colors"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -52,34 +52,34 @@ export function DashboardHeader() {
           <DropdownMenuTrigger asChild>
             <Button 
               variant="ghost" 
-              className="flex items-center gap-2 hover:bg-muted/50 transition-colors"
+              className="flex items-center gap-2 hover:bg-white/10 transition-colors text-white"
             >
               <Avatar className="h-8 w-8">
-                <AvatarFallback className="bg-primary/10 text-primary font-medium">
+                <AvatarFallback className="bg-white/20 text-white font-medium border border-white/30">
                   {userInitials}
                 </AvatarFallback>
               </Avatar>
               <div className="hidden sm:block text-left">
-                <p className="text-sm font-medium">
+                <p className="text-sm font-medium text-white">
                   {user?.user_metadata?.full_name || 'User'}
                 </p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-white/70">
                   {user?.email}
                 </p>
               </div>
-              <ChevronDown className="h-4 w-4 text-muted-foreground" />
+              <ChevronDown className="h-4 w-4 text-white/70" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56 bg-background border">
+          <DropdownMenuContent align="end" className="glass-panel w-56 border-white/30">
             <DropdownMenuItem asChild>
-              <Link to="/dashboard/settings" className="flex items-center gap-2">
+              <Link to="/dashboard/settings" className="flex items-center gap-2 text-gray-900">
                 <User className="h-4 w-4" />
                 Profile Settings
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem 
               onClick={handleSignOut}
-              className="text-destructive focus:text-destructive"
+              className="text-red-600 focus:text-red-600"
             >
               Sign Out
             </DropdownMenuItem>

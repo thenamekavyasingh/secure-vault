@@ -191,4 +191,29 @@ All colors MUST be HSL.
   .category-work {
     background-color: hsl(var(--category-work));
   }
+
+  /* Glassmorphic utilities */
+  .glass-panel {
+    @apply backdrop-blur-md bg-white/20 border border-white/30 shadow-lg;
+  }
+  
+  .glass-card {
+    @apply backdrop-blur-lg bg-white/25 border border-white/40 shadow-xl rounded-lg;
+  }
+  
+  .glass-sidebar {
+    @apply backdrop-blur-xl bg-white/15 border-r border-white/25;
+  }
+  
+  .glass-header {
+    @apply backdrop-blur-lg bg-white/20 border-b border-white/30;
+  }
+  
+  .glass-input {
+    @apply backdrop-blur-md bg-white/30 border border-white/50 text-gray-900 placeholder:text-gray-700;
+  }
+  
+  .glass-button {
+    @apply backdrop-blur-md bg-white/90 hover:bg-white text-gray-900 border border-white/50 shadow-lg;
+  }
 }

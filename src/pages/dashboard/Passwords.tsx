@@ -63,34 +63,34 @@ const Passwords = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">All Passwords</h1>
-        <Button asChild>
+        <h1 className="text-2xl font-semibold text-white drop-shadow-md">All Passwords</h1>
+        <Button className="glass-button">
           <a href="/dashboard/add">Add New</a>
         </Button>
       </div>
 
       {isLoading ? (
-        <p className="text-muted-foreground">Loading...</p>
+        <p className="text-white/80">Loading...</p>
       ) : (
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {entries?.map((item) => {
             const categoryName = getCategory(item.category_id);
-            const cls = nameToClass[categoryName] || 'bg-muted';
+            const cls = nameToClass[categoryName] || 'bg-white/20';
             return (
-              <Card key={item.id} className="shadow-sm">
+              <Card key={item.id} className="glass-card border-white/30 shadow-lg">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-base">{item.account_name}</CardTitle>
-                    <Badge className={`${cls} text-foreground/80`}>{categoryName}</Badge>
+                    <CardTitle className="text-base text-white">{item.account_name}</CardTitle>
+                    <Badge className={`${cls} text-gray-900 border border-white/30`}>{categoryName}</Badge>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {item.username && (
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Username</span>
+                      <span className="text-sm text-white/80">Username</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium">{item.username}</span>
-                        <Button size="icon" variant="ghost" onClick={() => handleCopy(item.username!, 'Username')}>
+                        <span className="text-sm font-medium text-white">{item.username}</span>
+                        <Button size="icon" variant="ghost" className="hover:bg-white/10 text-white" onClick={() => handleCopy(item.username!, 'Username')}>
                           <Copy className="h-4 w-4" />
                         </Button>
                       </div>
@@ -98,29 +98,29 @@ const Passwords = () => {
                   )}
                   {item.email && (
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Email</span>
+                      <span className="text-sm text-white/80">Email</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium">{item.email}</span>
-                        <Button size="icon" variant="ghost" onClick={() => handleCopy(item.email!, 'Email')}>
+                        <span className="text-sm font-medium text-white">{item.email}</span>
+                        <Button size="icon" variant="ghost" className="hover:bg-white/10 text-white" onClick={() => handleCopy(item.email!, 'Email')}>
                           <Copy className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
                   )}
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Password</span>
+                    <span className="text-sm text-white/80">Password</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium flex items-center gap-1"><EyeOff className="h-4 w-4" /> ••••••••</span>
-                      <Button size="icon" variant="ghost" onClick={() => handleCopy(item.encrypted_password, 'Password')}>
+                      <span className="text-sm font-medium flex items-center gap-1 text-white"><EyeOff className="h-4 w-4" /> ••••••••</span>
+                      <Button size="icon" variant="ghost" className="hover:bg-white/10 text-white" onClick={() => handleCopy(item.encrypted_password, 'Password')}>
                         <Copy className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
                   <div className="flex items-center justify-end gap-2 pt-2">
-                    <Button variant="outline" size="icon" title="Edit" disabled>
+                    <Button variant="outline" size="icon" title="Edit" disabled className="border-white/30 hover:bg-white/10 text-white">
                       <Edit2 className="h-4 w-4" />
                     </Button>
-                    <Button variant="outline" size="icon" title="Delete" disabled>
+                    <Button variant="outline" size="icon" title="Delete" disabled className="border-white/30 hover:bg-white/10 text-white">
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>

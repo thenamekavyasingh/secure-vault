@@ -23,19 +23,19 @@ const Categories = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">Categories</h1>
+      <h1 className="text-2xl font-semibold text-white drop-shadow-md">Categories</h1>
 
       {isLoading ? (
-        <p className="text-muted-foreground">Loading...</p>
+        <p className="text-white/80">Loading...</p>
       ) : (
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {categories?.map((cat) => (
-            <Card key={cat.id} className="shadow-sm">
+            <Card key={cat.id} className="glass-card border-white/30 shadow-lg">
               <CardHeader>
-                <CardTitle>{cat.name}</CardTitle>
+                <CardTitle className="text-white">{cat.name}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className={`inline-flex px-3 py-1 rounded-full text-sm ${nameToClass[cat.name] || 'bg-muted'}`}>
+                <div className={`inline-flex px-3 py-1 rounded-full text-sm ${nameToClass[cat.name] || 'bg-white/20'} text-gray-900 border border-white/30`}>
                   {cat.name}
                 </div>
               </CardContent>

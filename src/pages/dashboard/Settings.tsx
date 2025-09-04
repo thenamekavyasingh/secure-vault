@@ -7,16 +7,22 @@ const Settings = () => {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <h1 className="text-2xl font-semibold">Settings</h1>
-      <Card className="shadow-sm">
+      <h1 className="text-2xl font-semibold text-white drop-shadow-md">Settings</h1>
+      <Card className="glass-card shadow-lg border-white/30">
         <CardHeader>
-          <CardTitle>Account</CardTitle>
+          <CardTitle className="text-white">Account</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="text-sm text-muted-foreground">
-            Logged in as <span className="font-medium text-foreground">{user?.email}</span>
+          <div className="text-sm text-white/80">
+            Logged in as <span className="font-medium text-white">{user?.email}</span>
           </div>
-          <Button variant="destructive" onClick={() => signOut()}>Sign Out</Button>
+          <Button 
+            variant="destructive" 
+            onClick={() => signOut()}
+            className="bg-red-500/80 hover:bg-red-600/80 text-white border border-red-400/50"
+          >
+            Sign Out
+          </Button>
         </CardContent>
       </Card>
     </div>

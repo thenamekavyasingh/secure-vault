@@ -73,56 +73,56 @@ const AddPassword = () => {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <h1 className="text-2xl font-semibold">Add New Password</h1>
-      <Card className="shadow-sm">
+      <h1 className="text-2xl font-semibold text-white drop-shadow-md">Add New Password</h1>
+      <Card className="glass-card border-white/30 shadow-lg">
         <CardHeader>
-          <CardTitle>Details</CardTitle>
+          <CardTitle className="text-white">Details</CardTitle>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="account_name">Account Name</Label>
-                <Input id="account_name" name="account_name" placeholder="e.g. Gmail" value={form.account_name} onChange={handleChange} required />
+                <Label htmlFor="account_name" className="text-white">Account Name</Label>
+                <Input id="account_name" name="account_name" placeholder="e.g. Gmail" value={form.account_name} onChange={handleChange} required className="glass-input" />
               </div>
               <div>
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" name="username" placeholder="e.g. john_doe" value={form.username} onChange={handleChange} />
+                <Label htmlFor="username" className="text-white">Username</Label>
+                <Input id="username" name="username" placeholder="e.g. john_doe" value={form.username} onChange={handleChange} className="glass-input" />
               </div>
               <div>
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" name="email" type="email" placeholder="e.g. john@site.com" value={form.email} onChange={handleChange} />
+                <Label htmlFor="email" className="text-white">Email</Label>
+                <Input id="email" name="email" type="email" placeholder="e.g. john@site.com" value={form.email} onChange={handleChange} className="glass-input" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" name="password" type="password" placeholder="Create a strong password" value={form.password} onChange={handleChange} required />
+                <Label htmlFor="password" className="text-white">Password</Label>
+                <Input id="password" name="password" type="password" placeholder="Create a strong password" value={form.password} onChange={handleChange} required className="glass-input" />
                 <PasswordStrength password={form.password} />
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label>Category</Label>
+                <Label className="text-white">Category</Label>
                 <Select value={form.category_id} onValueChange={(v) => setForm(f => ({ ...f, category_id: v }))}>
-                  <SelectTrigger>
+                  <SelectTrigger className="glass-input">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="glass-panel border-white/30">
                     {categories?.map((c) => (
-                      <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                      <SelectItem key={c.id} value={c.id} className="text-gray-900">{c.name}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Label htmlFor="website_url">Website</Label>
-                <Input id="website_url" name="website_url" placeholder="https://..." value={form.website_url} onChange={handleChange} />
+                <Label htmlFor="website_url" className="text-white">Website</Label>
+                <Input id="website_url" name="website_url" placeholder="https://..." value={form.website_url} onChange={handleChange} className="glass-input" />
               </div>
             </div>
 
             <div className="pt-2 flex gap-3">
-              <Button type="submit">Save</Button>
-              <Button type="button" variant="outline" onClick={() => navigate('/dashboard/passwords')}>Cancel</Button>
+              <Button type="submit" className="glass-button">Save</Button>
+              <Button type="button" variant="outline" className="glass-button border-white/50" onClick={() => navigate('/dashboard/passwords')}>Cancel</Button>
             </div>
           </form>
         </CardContent>

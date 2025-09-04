@@ -3,6 +3,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/AppSidebar';
 import { DashboardHeader } from '@/components/DashboardHeader';
 import { useAuth } from '@/hooks/useAuth';
+import { AnimatedBackground } from '@/components/AnimatedBackground';
 
 const Dashboard = () => {
   const { user, loading } = useAuth();
@@ -21,12 +22,15 @@ const Dashboard = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
+      <div className="min-h-screen flex w-full bg-background relative">
+        <AnimatedBackground />
         <AppSidebar />
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col relative z-10">
           <DashboardHeader />
           <main className="flex-1 p-6">
-            <Outlet />
+            <div className="glass-panel p-6 rounded-lg">
+              <Outlet />
+            </div>
           </main>
         </div>
       </div>

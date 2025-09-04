@@ -1,17 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Shield, ArrowRight } from "lucide-react";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center space-y-8 max-w-2xl mx-auto px-4">
+    <div className="min-h-screen flex items-center justify-center relative">
+      <AnimatedBackground />
+      <div className="text-center space-y-8 max-w-2xl mx-auto px-4 glass-card p-8 relative z-10">
         <div className="space-y-4">
           <div className="flex justify-center mb-6">
             <div className="p-6 bg-primary/10 rounded-full">
               <Shield className="h-16 w-16 text-primary" />
             </div>
           </div>
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+          <h1 className="text-6xl font-bold text-white drop-shadow-lg">
             SecureVault
           </h1>
           <p className="text-xl text-muted-foreground max-w-md mx-auto leading-relaxed">
@@ -23,7 +25,7 @@ const Index = () => {
           <Button 
             asChild 
             size="lg" 
-            className="text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            className="glass-button text-lg px-8 py-6 rounded-full transition-all duration-300"
           >
             <a href="/auth" className="flex items-center gap-2">
               Get Started
