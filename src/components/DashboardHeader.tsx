@@ -33,7 +33,7 @@ export function DashboardHeader() {
   return (
     <header className="glass-header h-16 flex items-center justify-between px-6 sticky top-0 z-40">
       <div className="flex items-center gap-4">
-        <SidebarTrigger className="hover:bg-white/10 text-white" />
+        <SidebarTrigger className="hover:bg-white/10 text-glass-white" />
         
         <div className="relative max-w-md w-full">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
@@ -52,22 +52,22 @@ export function DashboardHeader() {
           <DropdownMenuTrigger asChild>
             <Button 
               variant="ghost" 
-              className="flex items-center gap-2 hover:bg-white/10 transition-colors text-white"
+              className="flex items-center gap-2 hover:bg-white/10 transition-colors text-glass-white"
             >
               <Avatar className="h-8 w-8">
-                <AvatarFallback className="bg-white/20 text-white font-medium border border-white/30">
+                <AvatarFallback className="bg-white/30 text-glass-dark font-medium border border-white/50">
                   {userInitials}
                 </AvatarFallback>
               </Avatar>
               <div className="hidden sm:block text-left">
-                <p className="text-sm font-medium text-white">
+                <p className="text-sm font-medium text-glass-white">
                   {user?.user_metadata?.full_name || 'User'}
                 </p>
-                <p className="text-xs text-white/70">
+                <p className="text-xs text-glass-white opacity-80">
                   {user?.email}
                 </p>
               </div>
-              <ChevronDown className="h-4 w-4 text-white/70" />
+              <ChevronDown className="h-4 w-4 text-glass-white opacity-80" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="glass-panel w-56 border-white/30">

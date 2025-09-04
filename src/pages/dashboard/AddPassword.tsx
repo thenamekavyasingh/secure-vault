@@ -73,28 +73,28 @@ const AddPassword = () => {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <h1 className="text-2xl font-semibold text-white drop-shadow-md">Add New Password</h1>
+      <h1 className="text-xl md:text-2xl font-semibold text-glass-dark">Add New Password</h1>
       <Card className="glass-card border-white/30 shadow-lg">
         <CardHeader>
-          <CardTitle className="text-white">Details</CardTitle>
+          <CardTitle className="text-glass-dark">Details</CardTitle>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="account_name" className="text-white">Account Name</Label>
+                <Label htmlFor="account_name" className="text-glass-dark">Account Name</Label>
                 <Input id="account_name" name="account_name" placeholder="e.g. Gmail" value={form.account_name} onChange={handleChange} required className="glass-input" />
               </div>
               <div>
-                <Label htmlFor="username" className="text-white">Username</Label>
+                <Label htmlFor="username" className="text-glass-dark">Username</Label>
                 <Input id="username" name="username" placeholder="e.g. john_doe" value={form.username} onChange={handleChange} className="glass-input" />
               </div>
               <div>
-                <Label htmlFor="email" className="text-white">Email</Label>
+                <Label htmlFor="email" className="text-glass-dark">Email</Label>
                 <Input id="email" name="email" type="email" placeholder="e.g. john@site.com" value={form.email} onChange={handleChange} className="glass-input" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-white">Password</Label>
+                <Label htmlFor="password" className="text-glass-dark">Password</Label>
                 <Input id="password" name="password" type="password" placeholder="Create a strong password" value={form.password} onChange={handleChange} required className="glass-input" />
                 <PasswordStrength password={form.password} />
               </div>
@@ -102,7 +102,7 @@ const AddPassword = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label className="text-white">Category</Label>
+                <Label className="text-glass-dark">Category</Label>
                 <Select value={form.category_id} onValueChange={(v) => setForm(f => ({ ...f, category_id: v }))}>
                   <SelectTrigger className="glass-input">
                     <SelectValue placeholder="Select a category" />
@@ -115,7 +115,7 @@ const AddPassword = () => {
                 </Select>
               </div>
               <div>
-                <Label htmlFor="website_url" className="text-white">Website</Label>
+                <Label htmlFor="website_url" className="text-glass-dark">Website</Label>
                 <Input id="website_url" name="website_url" placeholder="https://..." value={form.website_url} onChange={handleChange} className="glass-input" />
               </div>
             </div>

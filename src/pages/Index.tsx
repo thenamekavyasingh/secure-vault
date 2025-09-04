@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Shield, ArrowRight } from "lucide-react";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { FloatingBubbles } from "@/components/FloatingBubbles";
 
 const Index = () => {
   return (
     <div className="min-h-screen flex items-center justify-center relative">
       <AnimatedBackground />
+      <FloatingBubbles />
       <div className="text-center space-y-8 max-w-2xl mx-auto px-4 glass-card p-8 relative z-10">
         <div className="space-y-4">
           <div className="flex justify-center mb-6">
@@ -13,10 +15,10 @@ const Index = () => {
               <Shield className="h-16 w-16 text-primary" />
             </div>
           </div>
-          <h1 className="text-6xl font-bold text-white drop-shadow-lg">
+          <h1 className="text-4xl md:text-6xl font-bold text-glass-white">
             SecureVault
           </h1>
-          <p className="text-xl text-muted-foreground max-w-md mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-glass-white max-w-md mx-auto leading-relaxed">
             Your secure, beautiful password manager with pastel aesthetics and military-grade encryption.
           </p>
         </div>
@@ -33,10 +35,10 @@ const Index = () => {
             </a>
           </Button>
           
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-            <span className="px-3 py-1 bg-muted/50 rounded-full">✨ Pastel Design</span>
-            <span className="px-3 py-1 bg-muted/50 rounded-full">🔒 End-to-End Encrypted</span>
-            <span className="px-3 py-1 bg-muted/50 rounded-full">📱 Responsive</span>
+          <div className="flex flex-wrap justify-center gap-2 md:gap-4 text-sm">
+            <span className="px-3 py-1 glass-panel rounded-full text-glass-dark">✨ Pastel Design</span>
+            <span className="px-3 py-1 glass-panel rounded-full text-glass-dark">🔒 End-to-End Encrypted</span>
+            <span className="px-3 py-1 glass-panel rounded-full text-glass-dark">📱 Responsive</span>
           </div>
         </div>
       </div>

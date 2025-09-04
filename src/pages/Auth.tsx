@@ -9,6 +9,7 @@ import { Shield, Lock, Mail, User } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
+import { FloatingBubbles } from '@/components/FloatingBubbles';
 import { PasswordStrength } from '@/components/ui/password-strength';
 
 const Auth = () => {
@@ -74,80 +75,81 @@ const Auth = () => {
   return (
     <div className="min-h-screen flex">
       <AnimatedBackground />
+      <FloatingBubbles />
       
       {/* Left Side - Branding */}
-      <div className="hidden lg:flex flex-1 items-center justify-center p-12">
+      <div className="hidden lg:flex flex-1 items-center justify-center p-12 relative z-10">
         <div className="text-center space-y-8">
           <div className="flex justify-center">
-            <div className="p-8 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl">
-              <Shield className="h-20 w-20 text-white drop-shadow-lg" />
+            <div className="p-8 glass-card border-white/30">
+              <Shield className="h-20 w-20 text-glass-white" />
             </div>
           </div>
           <div className="space-y-4">
-            <h1 className="text-6xl font-bold text-white drop-shadow-2xl">
+            <h1 className="text-4xl md:text-6xl font-bold text-glass-white">
               SecureVault
             </h1>
-            <p className="text-xl text-white/90 max-w-md drop-shadow-lg">
+            <p className="text-lg md:text-xl text-glass-white max-w-md">
               Your secure password manager with military-grade encryption
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4 max-w-sm">
-            <div className="p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg">
-              <Lock className="h-6 w-6 text-white mb-2" />
-              <p className="text-sm font-medium text-white">256-bit Encryption</p>
+            <div className="p-4 rounded-xl glass-panel">
+              <Lock className="h-6 w-6 text-glass-dark mb-2" />
+              <p className="text-sm font-medium text-glass-dark">256-bit Encryption</p>
             </div>
-            <div className="p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-lg">
-              <Shield className="h-6 w-6 text-white mb-2" />
-              <p className="text-sm font-medium text-white">Zero Knowledge</p>
+            <div className="p-4 rounded-xl glass-panel">
+              <Shield className="h-6 w-6 text-glass-dark mb-2" />
+              <p className="text-sm font-medium text-glass-dark">Zero Knowledge</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Right Side - Auth Forms */}
-      <div className="flex-1 flex items-center justify-center p-4 lg:p-12">
+      <div className="flex-1 flex items-center justify-center p-4 lg:p-12 relative z-10">
         <div className="w-full max-w-md space-y-8">
           {/* Mobile branding */}
           <div className="text-center lg:hidden">
             <div className="flex justify-center mb-6">
-              <div className="p-4 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-lg">
-                <Shield className="h-12 w-12 text-white drop-shadow-lg" />
+              <div className="p-4 glass-card">
+                <Shield className="h-12 w-12 text-glass-white" />
               </div>
             </div>
-            <h1 className="text-4xl font-bold text-white drop-shadow-2xl mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-glass-white mb-2">
               SecureVault
             </h1>
-            <p className="text-white/90 drop-shadow-lg">
+            <p className="text-glass-white">
               Your secure password manager
             </p>
           </div>
 
-          <Card className="bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl">
+          <Card className="glass-card border-white/50">
             <CardHeader>
-              <CardTitle className="text-center text-2xl text-white">Welcome</CardTitle>
-              <CardDescription className="text-center text-white/80">
+              <CardTitle className="text-center text-2xl text-glass-white">Welcome</CardTitle>
+              <CardDescription className="text-center text-glass-white opacity-90">
                 Sign in to your secure vault or create a new account
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Tabs defaultValue="signin" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-6">
-                  <TabsTrigger value="signin">Sign In</TabsTrigger>
-                  <TabsTrigger value="signup">Sign Up</TabsTrigger>
+                <TabsList className="glass-panel grid w-full grid-cols-2 mb-6">
+                  <TabsTrigger value="signin" className="text-glass-dark data-[state=active]:bg-white/80">Sign In</TabsTrigger>
+                  <TabsTrigger value="signup" className="text-glass-dark data-[state=active]:bg-white/80">Sign Up</TabsTrigger>
                 </TabsList>
                 
                 <TabsContent value="signin">
                   <form onSubmit={handleSignIn} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="signin-email" className="text-white">Email</Label>
+                      <Label htmlFor="signin-email" className="text-glass-white">Email</Label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70" />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
                         <Input
                           id="signin-email"
                           name="email"
                           type="email"
                           placeholder="Enter your email"
-                          className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
+                          className="glass-input pl-10"
                           value={formData.email}
                           onChange={handleInputChange}
                           required
@@ -155,22 +157,22 @@ const Auth = () => {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="signin-password" className="text-white">Password</Label>
+                      <Label htmlFor="signin-password" className="text-glass-white">Password</Label>
                       <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70" />
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
                         <Input
                           id="signin-password"
                           name="password"
                           type="password"
                           placeholder="Enter your password"
-                          className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
+                          className="glass-input pl-10"
                           value={formData.password}
                           onChange={handleInputChange}
                           required
                         />
                       </div>
                     </div>
-                    <Button type="submit" className="w-full bg-white text-gray-900 hover:bg-white/90 font-medium" disabled={loading}>
+                    <Button type="submit" className="w-full glass-button font-medium" disabled={loading}>
                       {loading ? 'Signing In...' : 'Sign In'}
                     </Button>
                   </form>
@@ -179,30 +181,30 @@ const Auth = () => {
                 <TabsContent value="signup">
                   <form onSubmit={handleSignUp} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="fullname" className="text-white">Full Name</Label>
+                      <Label htmlFor="fullname" className="text-glass-white">Full Name</Label>
                       <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70" />
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
                         <Input
                           id="fullname"
                           name="fullName"
                           type="text"
                           placeholder="Enter your full name"
-                          className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
+                          className="glass-input pl-10"
                           value={formData.fullName}
                           onChange={handleInputChange}
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="signup-email" className="text-white">Email</Label>
+                      <Label htmlFor="signup-email" className="text-glass-white">Email</Label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70" />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
                         <Input
                           id="signup-email"
                           name="email"
                           type="email"
                           placeholder="Enter your email"
-                          className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
+                          className="glass-input pl-10"
                           value={formData.email}
                           onChange={handleInputChange}
                           required
@@ -210,15 +212,15 @@ const Auth = () => {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="signup-password" className="text-white">Password</Label>
+                      <Label htmlFor="signup-password" className="text-glass-white">Password</Label>
                       <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70" />
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
                         <Input
                           id="signup-password"
                           name="password"
                           type="password"
                           placeholder="Create a password"
-                          className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:bg-white/20"
+                          className="glass-input pl-10"
                           value={formData.password}
                           onChange={handleInputChange}
                           required
@@ -226,7 +228,7 @@ const Auth = () => {
                       </div>
                       <PasswordStrength password={formData.password} className="mt-2" />
                     </div>
-                    <Button type="submit" className="w-full bg-white text-gray-900 hover:bg-white/90 font-medium" disabled={loading}>
+                    <Button type="submit" className="w-full glass-button font-medium" disabled={loading}>
                       {loading ? 'Creating Account...' : 'Create Account'}
                     </Button>
                   </form>

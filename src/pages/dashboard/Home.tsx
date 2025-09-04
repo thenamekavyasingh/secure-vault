@@ -6,19 +6,19 @@ const Home = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-white drop-shadow-md">Dashboard</h1>
+        <h1 className="text-xl md:text-2xl font-semibold text-glass-white">Dashboard</h1>
       </div>
 
       <Card className="glass-card border-white/30 shadow-lg">
-        <CardContent className="p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <CardContent className="p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="p-3 backdrop-blur-md bg-white/20 rounded-full border border-white/30">
-              <Shield className="h-6 w-6 text-white drop-shadow-md" />
+            <div className="p-3 backdrop-blur-md bg-white/30 rounded-full border border-white/50">
+              <Shield className="h-6 w-6 text-glass-dark" />
             </div>
             <div>
-              <p className="text-sm text-white/80">Welcome to</p>
-              <h2 className="text-xl font-bold text-white drop-shadow-md">SecureVault</h2>
-              <p className="text-sm text-white/80">Manage your passwords securely</p>
+              <p className="text-sm text-glass-dark">Welcome to</p>
+              <h2 className="text-lg md:text-xl font-bold text-glass-dark">SecureVault</h2>
+              <p className="text-sm text-glass-dark">Manage your passwords securely</p>
             </div>
           </div>
           <div className="flex gap-3">

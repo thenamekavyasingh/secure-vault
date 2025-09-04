@@ -58,7 +58,7 @@ export function AppSidebar() {
           </div>
           {!isCollapsed && (
             <div>
-              <h2 className="font-bold text-lg text-white drop-shadow-md">
+              <h2 className="font-bold text-lg text-glass-white">
                 SecureVault
               </h2>
             </div>
@@ -68,7 +68,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-white/80">Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-glass-white">Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
@@ -76,7 +76,7 @@ export function AppSidebar() {
                   <SidebarMenuButton 
                     asChild 
                     isActive={isActive(item.url)}
-                    className="hover:bg-white/10 transition-colors text-white data-[active=true]:bg-white/20 data-[active=true]:text-white"
+                    className="hover:bg-white/10 transition-colors text-glass-white data-[active=true]:bg-white/20 data-[active=true]:text-glass-white"
                   >
                     <a href={item.url}>
                       <item.icon className="h-4 w-4" />
@@ -96,7 +96,7 @@ export function AppSidebar() {
             <Button
               variant="ghost"
               onClick={handleSignOut}
-              className="w-full justify-start hover:bg-red-400/20 text-white hover:text-red-200 transition-colors"
+              className="w-full justify-start hover:bg-red-400/20 text-glass-white hover:text-red-200 transition-colors"
             >
               <LogOut className="h-4 w-4" />
               {!isCollapsed && <span className="ml-2">Sign Out</span>}

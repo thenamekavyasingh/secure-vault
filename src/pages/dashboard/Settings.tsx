@@ -7,14 +7,14 @@ const Settings = () => {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <h1 className="text-2xl font-semibold text-white drop-shadow-md">Settings</h1>
+      <h1 className="text-xl md:text-2xl font-semibold text-glass-dark">Settings</h1>
       <Card className="glass-card shadow-lg border-white/30">
         <CardHeader>
-          <CardTitle className="text-white">Account</CardTitle>
+          <CardTitle className="text-glass-dark">Account</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="text-sm text-white/80">
-            Logged in as <span className="font-medium text-white">{user?.email}</span>
+          <div className="text-sm text-glass-dark opacity-80">
+            Logged in as <span className="font-medium text-glass-dark">{user?.email}</span>
           </div>
           <Button 
             variant="destructive" 
