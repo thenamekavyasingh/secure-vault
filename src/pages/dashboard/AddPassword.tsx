@@ -10,6 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { PasswordStrength } from '@/components/ui/password-strength';
+import { encryptPassword, generateSecurePassword } from '@/utils/encryption';
+import { RefreshCw } from 'lucide-react';
 
 interface Category { id: string; name: string; }
 
@@ -26,6 +28,8 @@ const AddPassword = () => {
     category_id: '' as string | undefined,
     website_url: '',
   });
+
+  const [masterPassword, setMasterPassword] = useState('');
 
   const { data: categories } = useQuery({
     queryKey: ['categories'],
@@ -48,26 +52,51 @@ const AddPassword = () => {
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
+  const generatePassword = () => {
+    const newPassword = generateSecurePassword(16, true);
+    setForm(prev => ({ ...prev, password: newPassword }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
 
-    const payload = {
-      user_id: user.id,
-      account_name: form.account_name,
-      username: form.username || null,
-      email: form.email || null,
-      encrypted_password: form.password, // TODO: replace with encryption in next step
-      category_id: form.category_id || null,
-      website_url: form.website_url || null,
-    };
+    if (!masterPassword) {
+      toast({ 
+        title: 'Master Password Required', 
+        description: 'Please enter your master password to encrypt and store the password securely.', 
+        variant: 'destructive' 
+      });
+      return;
+    }
 
-    const { error } = await supabase.from('password_entries').insert([payload]);
-    if (error) {
-      toast({ title: 'Failed to add', description: error.message, variant: 'destructive' });
-    } else {
-      toast({ title: 'Saved', description: 'Password added to your vault.' });
-      navigate('/dashboard/passwords');
+    try {
+      // Encrypt the password using AES encryption
+      const encryptedPassword = encryptPassword(form.password, masterPassword);
+
+      const payload = {
+        user_id: user.id,
+        account_name: form.account_name,
+        username: form.username || null,
+        email: form.email || null,
+        encrypted_password: encryptedPassword,
+        category_id: form.category_id || null,
+        website_url: form.website_url || null,
+      };
+
+      const { error } = await supabase.from('password_entries').insert([payload]);
+      if (error) {
+        toast({ title: 'Failed to add', description: error.message, variant: 'destructive' });
+      } else {
+        toast({ title: 'Saved', description: 'Password encrypted and added to your vault securely.' });
+        navigate('/dashboard/passwords');
+      }
+    } catch (error) {
+      toast({ 
+        title: 'Encryption Error', 
+        description: 'Failed to encrypt password. Please try again.', 
+        variant: 'destructive' 
+      });
     }
   };
 
@@ -81,30 +110,74 @@ const AddPassword = () => {
         <CardContent>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="account_name" className="text-glass-dark">Account Name</Label>
-                <Input id="account_name" name="account_name" placeholder="e.g. Gmail" value={form.account_name} onChange={handleChange} required className="glass-input" />
+              <div className="text-container">
+                <Label htmlFor="account_name" className="text-glass-dark">Account Name *</Label>
+                <Input 
+                  id="account_name" 
+                  name="account_name" 
+                  placeholder="e.g. Gmail" 
+                  value={form.account_name} 
+                  onChange={handleChange} 
+                  required 
+                  className="glass-input w-full" 
+                />
               </div>
-              <div>
+              <div className="text-container">
                 <Label htmlFor="username" className="text-glass-dark">Username</Label>
-                <Input id="username" name="username" placeholder="e.g. john_doe" value={form.username} onChange={handleChange} className="glass-input" />
+                <Input 
+                  id="username" 
+                  name="username" 
+                  placeholder="e.g. john_doe" 
+                  value={form.username} 
+                  onChange={handleChange} 
+                  className="glass-input w-full" 
+                />
               </div>
-              <div>
+              <div className="text-container">
                 <Label htmlFor="email" className="text-glass-dark">Email</Label>
-                <Input id="email" name="email" type="email" placeholder="e.g. john@site.com" value={form.email} onChange={handleChange} className="glass-input" />
+                <Input 
+                  id="email" 
+                  name="email" 
+                  type="email" 
+                  placeholder="e.g. john@site.com" 
+                  value={form.email} 
+                  onChange={handleChange} 
+                  className="glass-input w-full" 
+                />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-glass-dark">Password</Label>
-                <Input id="password" name="password" type="password" placeholder="Create a strong password" value={form.password} onChange={handleChange} required className="glass-input" />
+              <div className="space-y-2 text-container">
+                <Label htmlFor="password" className="text-glass-dark">Password *</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    id="password" 
+                    name="password" 
+                    type="password" 
+                    placeholder="Create a strong password" 
+                    value={form.password} 
+                    onChange={handleChange} 
+                    required 
+                    className="glass-input flex-1" 
+                  />
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    size="icon"
+                    onClick={generatePassword}
+                    className="glass-button"
+                    title="Generate secure password"
+                  >
+                    <RefreshCw className="h-4 w-4" />
+                  </Button>
+                </div>
                 <PasswordStrength password={form.password} />
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
+              <div className="text-container">
                 <Label className="text-glass-dark">Category</Label>
                 <Select value={form.category_id} onValueChange={(v) => setForm(f => ({ ...f, category_id: v }))}>
-                  <SelectTrigger className="glass-input">
+                  <SelectTrigger className="glass-input w-full">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent className="glass-panel border-white/30">
@@ -114,10 +187,33 @@ const AddPassword = () => {
                   </SelectContent>
                 </Select>
               </div>
-              <div>
-                <Label htmlFor="website_url" className="text-glass-dark">Website</Label>
-                <Input id="website_url" name="website_url" placeholder="https://..." value={form.website_url} onChange={handleChange} className="glass-input" />
+              <div className="text-container">
+                <Label htmlFor="website_url" className="text-glass-dark">Website URL</Label>
+                <Input 
+                  id="website_url" 
+                  name="website_url" 
+                  placeholder="https://example.com" 
+                  value={form.website_url} 
+                  onChange={handleChange} 
+                  className="glass-input w-full" 
+                />
               </div>
+            </div>
+
+            <div className="space-y-2 text-container">
+              <Label htmlFor="master_password" className="text-glass-dark">Master Password for Encryption *</Label>
+              <Input 
+                id="master_password" 
+                type="password" 
+                placeholder="Enter your master password to encrypt this entry" 
+                value={masterPassword} 
+                onChange={(e) => setMasterPassword(e.target.value)} 
+                required 
+                className="glass-input w-full" 
+              />
+              <p className="text-xs text-gray-600">
+                Your master password is used to encrypt this entry with AES-256 encryption. It's never stored on our servers.
+              </p>
             </div>
 
             <div className="pt-2 flex gap-3">

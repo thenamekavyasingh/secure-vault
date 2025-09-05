@@ -1,10 +1,15 @@
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Copy, Edit2, Trash2, EyeOff } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Copy, Edit2, Trash2, EyeOff, Eye, Key } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { decryptPassword } from '@/utils/encryption';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 interface Category { id: string; name: string; }
 interface Entry {
@@ -27,6 +32,9 @@ const nameToClass: Record<string, string> = {
 
 const Passwords = () => {
   const { toast } = useToast();
+  const [masterPassword, setMasterPassword] = useState('');
+  const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
+  const [showDecrypted, setShowDecrypted] = useState<Record<string, boolean>>({});
 
   const { data: categories } = useQuery({
     queryKey: ['categories'],
@@ -60,6 +68,31 @@ const Passwords = () => {
     }
   };
 
+  const handleDecryptPassword = async (entry: Entry) => {
+    if (!masterPassword) {
+      toast({ 
+        title: 'Master Password Required', 
+        description: 'Please enter your master password to decrypt.', 
+        variant: 'destructive' 
+      });
+      return;
+    }
+
+    try {
+      const decryptedPassword = decryptPassword(entry.encrypted_password, masterPassword);
+      await navigator.clipboard.writeText(decryptedPassword);
+      toast({ title: 'Password Copied', description: 'Decrypted password copied to clipboard.' });
+      setSelectedEntry(null);
+      setMasterPassword('');
+    } catch (error) {
+      toast({ 
+        title: 'Decryption Failed', 
+        description: 'Invalid master password or corrupted data.', 
+        variant: 'destructive' 
+      });
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -70,7 +103,7 @@ const Passwords = () => {
       </div>
 
       {isLoading ? (
-        <p className="text-glass-dark">Loading...</p>
+        <p className="text-glass-dark">Loading passwords...</p>
       ) : (
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {entries?.map((item) => {
@@ -78,50 +111,125 @@ const Passwords = () => {
             const cls = nameToClass[categoryName] || 'bg-white/20';
             return (
               <Card key={item.id} className="glass-card border-white/30 shadow-lg">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base text-glass-dark">{item.account_name}</CardTitle>
-                    <Badge className={`${cls} text-gray-900 border border-white/30`}>{categoryName}</Badge>
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <CardTitle className="text-base text-glass-dark break-words flex-1 leading-tight">
+                      {item.account_name}
+                    </CardTitle>
+                    <Badge className={`${cls} text-gray-900 border border-white/30 shrink-0 text-xs`}>
+                      {categoryName}
+                    </Badge>
                   </div>
+                  {item.website_url && (
+                    <p className="text-xs text-gray-600 break-all">
+                      {item.website_url}
+                    </p>
+                  )}
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-3 pt-0">
                   {item.username && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-glass-dark opacity-80">Username</span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-glass-dark">{item.username}</span>
-                        <Button size="icon" variant="ghost" className="hover:bg-white/10 text-glass-dark" onClick={() => handleCopy(item.username!, 'Username')}>
-                          <Copy className="h-4 w-4" />
+                    <div className="space-y-1">
+                      <span className="text-xs text-gray-600 font-medium">Username</span>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-sm font-medium text-glass-dark break-all flex-1 card-text">
+                          {item.username}
+                        </span>
+                        <Button 
+                          size="icon" 
+                          variant="ghost" 
+                          className="hover:bg-white/20 text-glass-dark shrink-0 h-8 w-8" 
+                          onClick={() => handleCopy(item.username!, 'Username')}
+                        >
+                          <Copy className="h-3 w-3" />
                         </Button>
                       </div>
                     </div>
                   )}
                   {item.email && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-glass-dark opacity-80">Email</span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-glass-dark">{item.email}</span>
-                        <Button size="icon" variant="ghost" className="hover:bg-white/10 text-glass-dark" onClick={() => handleCopy(item.email!, 'Email')}>
-                          <Copy className="h-4 w-4" />
+                    <div className="space-y-1">
+                      <span className="text-xs text-gray-600 font-medium">Email</span>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-sm font-medium text-glass-dark break-all flex-1 card-text">
+                          {item.email}
+                        </span>
+                        <Button 
+                          size="icon" 
+                          variant="ghost" 
+                          className="hover:bg-white/20 text-glass-dark shrink-0 h-8 w-8" 
+                          onClick={() => handleCopy(item.email!, 'Email')}
+                        >
+                          <Copy className="h-3 w-3" />
                         </Button>
                       </div>
                     </div>
                   )}
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-glass-dark opacity-80">Password</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium flex items-center gap-1 text-glass-dark"><EyeOff className="h-4 w-4" /> ••••••••</span>
-                      <Button size="icon" variant="ghost" className="hover:bg-white/10 text-glass-dark" onClick={() => handleCopy(item.encrypted_password, 'Password')}>
-                        <Copy className="h-4 w-4" />
-                      </Button>
+                  <div className="space-y-1">
+                    <span className="text-xs text-gray-600 font-medium">Password (AES-256 Encrypted)</span>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm font-medium flex items-center gap-1 text-glass-dark">
+                        <Key className="h-3 w-3" /> 
+                        <span className="text-xs">••••••••••••</span>
+                      </span>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button 
+                            size="icon" 
+                            variant="ghost" 
+                            className="hover:bg-white/20 text-glass-dark shrink-0 h-8 w-8" 
+                            onClick={() => setSelectedEntry(item)}
+                          >
+                            <Eye className="h-3 w-3" />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="glass-card">
+                          <DialogHeader>
+                            <DialogTitle className="text-glass-dark">Decrypt Password</DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-4">
+                            <div>
+                              <Label htmlFor="decrypt_master_password" className="text-glass-dark">
+                                Enter Master Password
+                              </Label>
+                              <Input
+                                id="decrypt_master_password"
+                                type="password"
+                                placeholder="Your master password"
+                                value={masterPassword}
+                                onChange={(e) => setMasterPassword(e.target.value)}
+                                className="glass-input"
+                              />
+                            </div>
+                            <div className="flex gap-2">
+                              <Button 
+                                onClick={() => selectedEntry && handleDecryptPassword(selectedEntry)}
+                                className="glass-button flex-1"
+                              >
+                                Decrypt & Copy
+                              </Button>
+                            </div>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </div>
-                  <div className="flex items-center justify-end gap-2 pt-2">
-                    <Button variant="outline" size="icon" title="Edit" disabled className="border-white/30 hover:bg-white/10 text-glass-dark">
-                      <Edit2 className="h-4 w-4" />
+                  <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/10">
+                    <Button 
+                      variant="outline" 
+                      size="icon" 
+                      title="Edit" 
+                      disabled 
+                      className="border-white/30 hover:bg-white/10 text-glass-dark h-8 w-8"
+                    >
+                      <Edit2 className="h-3 w-3" />
                     </Button>
-                    <Button variant="outline" size="icon" title="Delete" disabled className="border-white/30 hover:bg-white/10 text-glass-dark">
-                      <Trash2 className="h-4 w-4" />
+                    <Button 
+                      variant="outline" 
+                      size="icon" 
+                      title="Delete" 
+                      disabled 
+                      className="border-white/30 hover:bg-white/10 text-glass-dark h-8 w-8"
+                    >
+                      <Trash2 className="h-3 w-3" />
                     </Button>
                   </div>
                 </CardContent>

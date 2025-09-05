@@ -194,36 +194,53 @@ All colors MUST be HSL.
 
   /* Enhanced Glassmorphic utilities with better contrast */
   .glass-panel {
-    @apply backdrop-blur-lg bg-white/40 border border-white/50 shadow-xl;
+    @apply backdrop-blur-lg bg-white/90 border border-white/60 shadow-xl;
+    color: hsl(var(--foreground));
   }
   
   .glass-card {
-    @apply backdrop-blur-xl bg-white/35 border border-white/60 shadow-2xl rounded-lg;
+    @apply backdrop-blur-xl bg-white/90 border border-white/70 shadow-2xl rounded-lg;
+    color: hsl(var(--foreground));
   }
   
   .glass-sidebar {
-    @apply backdrop-blur-xl bg-white/25 border-r border-white/40;
+    @apply backdrop-blur-xl bg-white/85 border-r border-white/60;
   }
   
   .glass-header {
-    @apply backdrop-blur-xl bg-white/30 border-b border-white/50;
+    @apply backdrop-blur-xl bg-white/85 border-b border-white/60;
   }
   
   .glass-input {
-    @apply backdrop-blur-lg bg-white/50 border border-white/70 text-gray-900 placeholder:text-gray-600 focus:bg-white/60;
+    @apply backdrop-blur-lg bg-white/95 border border-white/80 text-gray-900 placeholder:text-gray-600 focus:bg-white focus:border-white/90 focus:ring-2 focus:ring-white/40;
   }
   
   .glass-button {
-    @apply backdrop-blur-lg bg-white/95 hover:bg-white text-gray-900 border border-white/70 shadow-xl font-medium;
+    @apply backdrop-blur-lg bg-white hover:bg-white/95 text-gray-900 border border-white/80 shadow-xl font-medium transition-all duration-200;
   }
 
   /* Text with enhanced readability */
   .text-glass-white {
-    @apply text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-medium;
+    @apply text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] font-semibold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   }
   
   .text-glass-dark {
-    @apply text-gray-900 drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)];
+    @apply text-gray-900 drop-shadow-[0_1px_3px_rgba(255,255,255,0.9)] font-medium;
+  }
+
+  /* Text overflow protection */
+  .text-container {
+    @apply break-words overflow-hidden text-ellipsis;
+  }
+
+  .card-text {
+    @apply text-sm leading-relaxed max-w-full word-wrap break-all;
+  }
+
+  /* Enhanced responsive text handling */
+  .responsive-text {
+    @apply text-sm sm:text-base break-words;
   }
 
   /* Floating bubble animations */
