@@ -102,16 +102,16 @@ const AddPassword = () => {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <h1 className="text-xl md:text-2xl font-semibold text-glass-dark">Add New Password</h1>
+      <h1 className="text-xl md:text-2xl font-semibold text-heading">Add New Password</h1>
       <Card className="glass-card border-white/30 shadow-lg">
         <CardHeader>
-          <CardTitle className="text-glass-dark">Details</CardTitle>
+          <CardTitle className="text-heading">Details</CardTitle>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="text-container">
-                <Label htmlFor="account_name" className="text-glass-dark">Account Name *</Label>
+                <Label htmlFor="account_name" className="text-readable">Account Name *</Label>
                 <Input 
                   id="account_name" 
                   name="account_name" 
@@ -123,7 +123,7 @@ const AddPassword = () => {
                 />
               </div>
               <div className="text-container">
-                <Label htmlFor="username" className="text-glass-dark">Username</Label>
+                <Label htmlFor="username" className="text-readable">Username</Label>
                 <Input 
                   id="username" 
                   name="username" 
@@ -134,7 +134,7 @@ const AddPassword = () => {
                 />
               </div>
               <div className="text-container">
-                <Label htmlFor="email" className="text-glass-dark">Email</Label>
+                <Label htmlFor="email" className="text-readable">Email</Label>
                 <Input 
                   id="email" 
                   name="email" 
@@ -146,7 +146,7 @@ const AddPassword = () => {
                 />
               </div>
               <div className="space-y-2 text-container">
-                <Label htmlFor="password" className="text-glass-dark">Password *</Label>
+                <Label htmlFor="password" className="text-readable">Password *</Label>
                 <div className="flex gap-2">
                   <Input 
                     id="password" 
@@ -175,7 +175,7 @@ const AddPassword = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="text-container">
-                <Label className="text-glass-dark">Category</Label>
+                <Label className="text-readable">Category</Label>
                 <Select value={form.category_id} onValueChange={(v) => setForm(f => ({ ...f, category_id: v }))}>
                   <SelectTrigger className="glass-input w-full">
                     <SelectValue placeholder="Select a category" />
@@ -188,7 +188,7 @@ const AddPassword = () => {
                 </Select>
               </div>
               <div className="text-container">
-                <Label htmlFor="website_url" className="text-glass-dark">Website URL</Label>
+                <Label htmlFor="website_url" className="text-readable">Website URL</Label>
                 <Input 
                   id="website_url" 
                   name="website_url" 
@@ -201,7 +201,7 @@ const AddPassword = () => {
             </div>
 
             <div className="space-y-2 text-container">
-              <Label htmlFor="master_password" className="text-glass-dark">Master Password for Encryption *</Label>
+              <Label htmlFor="master_password" className="text-readable">Master Password for Encryption *</Label>
               <Input 
                 id="master_password" 
                 type="password" 
@@ -211,7 +211,7 @@ const AddPassword = () => {
                 required 
                 className="glass-input w-full" 
               />
-              <p className="text-xs text-gray-600">
+              <p className="text-xs text-slate-600">
                 Your master password is used to encrypt this entry with AES-256 encryption. It's never stored on our servers.
               </p>
             </div>

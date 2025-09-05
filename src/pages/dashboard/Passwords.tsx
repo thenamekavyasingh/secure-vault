@@ -96,14 +96,14 @@ const Passwords = () => {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <h1 className="text-xl md:text-2xl font-semibold text-glass-dark">All Passwords</h1>
+        <h1 className="text-xl md:text-2xl font-semibold text-heading">All Passwords</h1>
         <Button className="glass-button">
           <a href="/dashboard/add">Add New</a>
         </Button>
       </div>
 
       {isLoading ? (
-        <p className="text-glass-dark">Loading passwords...</p>
+        <p className="text-readable">Loading passwords...</p>
       ) : (
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {entries?.map((item) => {
@@ -113,15 +113,15 @@ const Passwords = () => {
               <Card key={item.id} className="glass-card border-white/30 shadow-lg">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between gap-2">
-                    <CardTitle className="text-base text-glass-dark break-words flex-1 leading-tight">
+                    <CardTitle className="text-base text-heading break-words flex-1 leading-tight">
                       {item.account_name}
                     </CardTitle>
-                    <Badge className={`${cls} text-gray-900 border border-white/30 shrink-0 text-xs`}>
+                    <Badge className={`${cls} text-slate-800 border border-white/30 shrink-0 text-xs font-medium`}>
                       {categoryName}
                     </Badge>
                   </div>
                   {item.website_url && (
-                    <p className="text-xs text-gray-600 break-all">
+                    <p className="text-xs text-slate-600 break-all">
                       {item.website_url}
                     </p>
                   )}
@@ -129,9 +129,9 @@ const Passwords = () => {
                 <CardContent className="space-y-3 pt-0">
                   {item.username && (
                     <div className="space-y-1">
-                      <span className="text-xs text-gray-600 font-medium">Username</span>
+                      <span className="text-xs text-slate-700 font-medium">Username</span>
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-sm font-medium text-glass-dark break-all flex-1 card-text">
+                        <span className="text-sm font-medium text-readable break-all flex-1 card-text">
                           {item.username}
                         </span>
                         <Button 
@@ -147,9 +147,9 @@ const Passwords = () => {
                   )}
                   {item.email && (
                     <div className="space-y-1">
-                      <span className="text-xs text-gray-600 font-medium">Email</span>
+                      <span className="text-xs text-slate-700 font-medium">Email</span>
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-sm font-medium text-glass-dark break-all flex-1 card-text">
+                        <span className="text-sm font-medium text-readable break-all flex-1 card-text">
                           {item.email}
                         </span>
                         <Button 
@@ -164,9 +164,9 @@ const Passwords = () => {
                     </div>
                   )}
                   <div className="space-y-1">
-                    <span className="text-xs text-gray-600 font-medium">Password (AES-256 Encrypted)</span>
+                    <span className="text-xs text-slate-700 font-medium">Password</span>
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-sm font-medium flex items-center gap-1 text-glass-dark">
+                      <span className="text-sm font-medium flex items-center gap-1 text-readable">
                         <Key className="h-3 w-3" /> 
                         <span className="text-xs">••••••••••••</span>
                       </span>
@@ -183,11 +183,11 @@ const Passwords = () => {
                         </DialogTrigger>
                         <DialogContent className="glass-card">
                           <DialogHeader>
-                            <DialogTitle className="text-glass-dark">Decrypt Password</DialogTitle>
+                            <DialogTitle className="text-heading">Decrypt Password</DialogTitle>
                           </DialogHeader>
                           <div className="space-y-4">
                             <div>
-                              <Label htmlFor="decrypt_master_password" className="text-glass-dark">
+                              <Label htmlFor="decrypt_master_password" className="text-readable">
                                 Enter Master Password
                               </Label>
                               <Input

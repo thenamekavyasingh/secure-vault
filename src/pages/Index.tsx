@@ -19,7 +19,7 @@ const Index = () => {
             SecureVault
           </h1>
           <p className="text-lg md:text-xl text-glass-white max-w-md mx-auto leading-relaxed">
-            Your secure, beautiful password manager with pastel aesthetics and military-grade encryption.
+            Your secure password manager with advanced encryption technology and an intuitive, modern design.
           </p>
         </div>
         
@@ -36,9 +36,9 @@ const Index = () => {
           </Button>
           
           <div className="flex flex-wrap justify-center gap-2 md:gap-4 text-sm">
-            <span className="px-3 py-1 glass-panel rounded-full text-glass-dark">✨ Pastel Design</span>
-            <span className="px-3 py-1 glass-panel rounded-full text-glass-dark">🔒 End-to-End Encrypted</span>
-            <span className="px-3 py-1 glass-panel rounded-full text-glass-dark">📱 Responsive</span>
+            <span className="px-3 py-1 glass-panel rounded-full text-readable">✨ Modern Design</span>
+            <span className="px-3 py-1 glass-panel rounded-full text-readable">🔒 AES-256 Encrypted</span>
+            <span className="px-3 py-1 glass-panel rounded-full text-readable">📱 Cross-Platform</span>
           </div>
         </div>
       </div>

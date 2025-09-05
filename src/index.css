@@ -226,7 +226,16 @@ All colors MUST be HSL.
   }
   
   .text-glass-dark {
-    @apply text-gray-900 drop-shadow-[0_1px_3px_rgba(255,255,255,0.9)] font-medium;
+    @apply text-slate-800 drop-shadow-[0_1px_3px_rgba(255,255,255,0.9)] font-semibold;
+  }
+
+  /* Enhanced text visibility */
+  .text-readable {
+    @apply text-slate-900 font-medium;
+  }
+  
+  .text-heading {
+    @apply text-slate-900 font-bold;
   }
 
   /* Text overflow protection */
