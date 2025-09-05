@@ -235,7 +235,7 @@ All colors MUST be HSL.
   }
 
   .card-text {
-    @apply text-sm leading-relaxed max-w-full word-wrap break-all;
+    @apply text-sm leading-relaxed max-w-full break-words;
   }
 
   /* Enhanced responsive text handling */
