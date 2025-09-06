@@ -159,13 +159,23 @@ const Passwords = () => {
 
   const handleDeleteEntry = async (id: string) => {
     try {
-      const ok = window.confirm('Delete this entry?');
+      console.log('Delete button clicked for entry:', id);
+      const ok = window.confirm('Are you sure you want to delete this password entry? This action cannot be undone.');
+      console.log('User confirmation:', ok);
       if (!ok) return;
+      
+      console.log('Proceeding with delete...');
       const { error } = await supabase.from('password_entries').delete().eq('id', id);
-      if (error) throw error;
-      toast({ title: 'Deleted', description: 'Entry removed.' });
+      if (error) {
+        console.error('Delete error:', error);
+        throw error;
+      }
+      
+      console.log('Delete successful');
+      toast({ title: 'Deleted', description: 'Password entry removed successfully.' });
       refetch();
     } catch (error: any) {
+      console.error('Delete failed:', error);
       toast({ title: 'Delete failed', description: error.message || 'Please try again', variant: 'destructive' });
     }
   };
