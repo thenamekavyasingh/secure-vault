@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Copy, Edit2, Trash2, EyeOff, Eye, Key } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { decryptPassword } from '@/utils/encryption';
+import { decryptPassword, encryptPassword } from '@/utils/encryption';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 interface Category { id: string; name: string; }
@@ -35,6 +35,15 @@ const Passwords = () => {
   const [masterPassword, setMasterPassword] = useState('');
   const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
   const [showDecrypted, setShowDecrypted] = useState<Record<string, boolean>>({});
+  const [editEntry, setEditEntry] = useState<Entry | null>(null);
+  const [editForm, setEditForm] = useState({
+    account_name: '',
+    username: '',
+    email: '',
+    website_url: '',
+    newPassword: '',
+    masterPassword: '',
+  });
 
   const { data: categories } = useQuery({
     queryKey: ['categories'],
@@ -90,6 +99,74 @@ const Passwords = () => {
         description: 'Invalid master password or corrupted data.', 
         variant: 'destructive' 
       });
+    }
+  };
+
+  const openEdit = (entry: Entry) => {
+    setEditEntry(entry);
+    setEditForm({
+      account_name: entry.account_name,
+      username: entry.username || '',
+      email: entry.email || '',
+      website_url: entry.website_url || '',
+      newPassword: '',
+      masterPassword: '',
+    });
+  };
+
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleUpdateEntry = async () => {
+    if (!editEntry) return;
+    try {
+      const updates: any = {
+        account_name: editForm.account_name,
+        username: editForm.username || null,
+        email: editForm.email || null,
+        website_url: editForm.website_url || null,
+      };
+
+      if (editForm.newPassword) {
+        if (!editForm.masterPassword) {
+          toast({
+            title: 'Master Password Required',
+            description: 'Enter your master password to re-encrypt the new password.',
+            variant: 'destructive',
+          });
+          return;
+        }
+        updates.encrypted_password = encryptPassword(editForm.newPassword, editForm.masterPassword);
+      }
+
+      const { error } = await supabase
+        .from('password_entries')
+        .update(updates)
+        .eq('id', editEntry.id);
+
+      if (error) throw error;
+
+      toast({ title: 'Updated', description: 'Entry updated successfully.' });
+      setEditEntry(null);
+      setEditForm({ account_name: '', username: '', email: '', website_url: '', newPassword: '', masterPassword: '' });
+      refetch();
+    } catch (error: any) {
+      toast({ title: 'Update failed', description: error.message || 'Please try again', variant: 'destructive' });
+    }
+  };
+
+  const handleDeleteEntry = async (id: string) => {
+    try {
+      const ok = window.confirm('Delete this entry?');
+      if (!ok) return;
+      const { error } = await supabase.from('password_entries').delete().eq('id', id);
+      if (error) throw error;
+      toast({ title: 'Deleted', description: 'Entry removed.' });
+      refetch();
+    } catch (error: any) {
+      toast({ title: 'Delete failed', description: error.message || 'Please try again', variant: 'destructive' });
     }
   };
 
@@ -213,21 +290,63 @@ const Passwords = () => {
                     </div>
                   </div>
                   <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/10">
-                    <Button 
-                      variant="outline" 
-                      size="icon" 
-                      title="Edit" 
-                      disabled 
-                      className="border-white/30 hover:bg-white/10 text-glass-dark h-8 w-8"
-                    >
-                      <Edit2 className="h-3 w-3" />
-                    </Button>
+                    <Dialog open={editEntry?.id === item.id} onOpenChange={(open) => { if (!open) setEditEntry(null); }}>
+                      <DialogTrigger asChild>
+                        <Button 
+                          variant="outline" 
+                          size="icon" 
+                          title="Edit" 
+                          className="border-white/30 hover:bg-white/10 text-glass-dark h-8 w-8"
+                          onClick={() => openEdit(item)}
+                        >
+                          <Edit2 className="h-3 w-3" />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="glass-card">
+                        <DialogHeader>
+                          <DialogTitle className="text-heading">Edit Entry</DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-3">
+                          <div>
+                            <Label htmlFor="edit_account_name" className="text-readable">Account Name</Label>
+                            <Input id="edit_account_name" name="account_name" value={editForm.account_name} onChange={handleEditChange} className="glass-input" />
+                          </div>
+                          <div>
+                            <Label htmlFor="edit_username" className="text-readable">Username</Label>
+                            <Input id="edit_username" name="username" value={editForm.username} onChange={handleEditChange} className="glass-input" />
+                          </div>
+                          <div>
+                            <Label htmlFor="edit_email" className="text-readable">Email</Label>
+                            <Input id="edit_email" name="email" type="email" value={editForm.email} onChange={handleEditChange} className="glass-input" />
+                          </div>
+                          <div>
+                            <Label htmlFor="edit_website_url" className="text-readable">Website URL</Label>
+                            <Input id="edit_website_url" name="website_url" value={editForm.website_url} onChange={handleEditChange} className="glass-input" />
+                          </div>
+                          <div>
+                            <Label htmlFor="edit_newPassword" className="text-readable">New Password (optional)</Label>
+                            <Input id="edit_newPassword" name="newPassword" type="password" value={editForm.newPassword} onChange={handleEditChange} className="glass-input" />
+                          </div>
+                          {editForm.newPassword && (
+                            <div>
+                              <Label htmlFor="edit_masterPassword" className="text-readable">Master Password (required to change password)</Label>
+                              <Input id="edit_masterPassword" name="masterPassword" type="password" value={editForm.masterPassword} onChange={handleEditChange} className="glass-input" />
+                            </div>
+                          )}
+                          <div className="flex gap-2 pt-2">
+                            <Button className="glass-button" onClick={handleUpdateEntry}>Save Changes</Button>
+                            <Button variant="outline" className="glass-button border-white/50" onClick={() => setEditEntry(null)}>Cancel</Button>
+                          </div>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+
                     <Button 
                       variant="outline" 
                       size="icon" 
                       title="Delete" 
-                      disabled 
                       className="border-white/30 hover:bg-white/10 text-glass-dark h-8 w-8"
+                      onClick={() => handleDeleteEntry(item.id)}
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>
