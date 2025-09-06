@@ -86,10 +86,10 @@ const Auth = () => {
             </div>
           </div>
           <div className="space-y-4">
-            <h1 className="text-4xl md:text-6xl font-bold text-glass-white">
+            <h1 className="text-4xl md:text-6xl font-bold text-glass-dark">
               SecureVault
             </h1>
-            <p className="text-lg md:text-xl text-glass-white max-w-md">
+            <p className="text-lg md:text-xl text-glass-dark max-w-md">
               Your secure password manager with military-grade encryption
             </p>
           </div>
@@ -116,18 +116,18 @@ const Auth = () => {
                 <Shield className="h-12 w-12 text-glass-white" />
               </div>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-glass-white mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-glass-dark mb-2">
               SecureVault
             </h1>
-            <p className="text-glass-white">
+            <p className="text-glass-dark">
               Your secure password manager
             </p>
           </div>
 
           <Card className="glass-card border-white/50">
             <CardHeader>
-              <CardTitle className="text-center text-2xl text-glass-white">Welcome</CardTitle>
-              <CardDescription className="text-center text-glass-white opacity-90">
+              <CardTitle className="text-center text-2xl text-glass-dark">Welcome</CardTitle>
+              <CardDescription className="text-center text-glass-dark opacity-90">
                 Sign in to your secure vault or create a new account
               </CardDescription>
             </CardHeader>
@@ -141,7 +141,7 @@ const Auth = () => {
                 <TabsContent value="signin">
                   <form onSubmit={handleSignIn} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="signin-email" className="text-glass-white">Email</Label>
+                      <Label htmlFor="signin-email" className="text-glass-dark">Email</Label>
                       <div className="relative">
                         <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
                         <Input
@@ -157,7 +157,7 @@ const Auth = () => {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="signin-password" className="text-glass-white">Password</Label>
+                      <Label htmlFor="signin-password" className="text-glass-dark">Password</Label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
                         <Input
@@ -181,7 +181,7 @@ const Auth = () => {
                 <TabsContent value="signup">
                   <form onSubmit={handleSignUp} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="fullname" className="text-glass-white">Full Name</Label>
+                      <Label htmlFor="fullname" className="text-glass-dark">Full Name</Label>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
                         <Input
@@ -196,7 +196,7 @@ const Auth = () => {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="signup-email" className="text-glass-white">Email</Label>
+                      <Label htmlFor="signup-email" className="text-glass-dark">Email</Label>
                       <div className="relative">
                         <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
                         <Input
@@ -212,7 +212,7 @@ const Auth = () => {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="signup-password" className="text-glass-white">Password</Label>
+                      <Label htmlFor="signup-password" className="text-glass-dark">Password</Label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" />
                         <Input

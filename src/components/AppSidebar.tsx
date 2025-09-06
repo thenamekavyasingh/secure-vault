@@ -54,11 +54,11 @@ export function AppSidebar() {
       <div className="p-4 border-b border-white/30">
         <div className="flex items-center gap-2">
           <div className="p-2 backdrop-blur-md bg-white/20 rounded-lg border border-white/30">
-            <Shield className="h-6 w-6 text-white drop-shadow-md" />
+            <Shield className="h-6 w-6 text-glass-dark drop-shadow-md" />
           </div>
           {!isCollapsed && (
             <div>
-              <h2 className="font-bold text-lg text-glass-white">
+              <h2 className="font-bold text-lg text-glass-dark">
                 SecureVault
               </h2>
             </div>
@@ -68,7 +68,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-glass-white">Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-glass-dark">Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
@@ -76,7 +76,7 @@ export function AppSidebar() {
                   <SidebarMenuButton 
                     asChild 
                     isActive={isActive(item.url)}
-                    className="hover:bg-white/10 transition-colors text-glass-white data-[active=true]:bg-white/20 data-[active=true]:text-glass-white"
+                    className="hover:bg-white/10 transition-colors text-glass-dark data-[active=true]:bg-white/20 data-[active=true]:text-glass-dark"
                   >
                     <a href={item.url}>
                       <item.icon className="h-4 w-4" />
@@ -96,7 +96,7 @@ export function AppSidebar() {
             <Button
               variant="ghost"
               onClick={handleSignOut}
-              className="w-full justify-start hover:bg-red-400/20 text-glass-white hover:text-red-200 transition-colors"
+              className="w-full justify-start hover:bg-red-400/20 text-glass-dark hover:text-red-600 transition-colors"
             >
               <LogOut className="h-4 w-4" />
               {!isCollapsed && <span className="ml-2">Sign Out</span>}
